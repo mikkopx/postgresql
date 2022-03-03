@@ -6,9 +6,12 @@ def connect():
     try:
         con = psycopg2.connect(**config())
         cursor = con.cursor()
-        select_all(cursor)
+        #select_all(cursor)
         #column_names(cursor)
+        #insert("AZ-106", 5, cursor)
+        #insertperson("Testi", 23, False, cursor)
         #updateperson(25, 2, cursor)
+        #deleteperson(6, cursor)
         con.commit()
         cursor.close()
         
@@ -38,9 +41,24 @@ def column_names(cursor):
         print(row)
         row = cursor.fetchone()
 
+def insert(serti, id, cursor):
+    SQL = "INSERT INTO certificates (name, person_id) VALUES (%s, %s);"
+    data = (f"{serti}", id)
+    cursor.execute(SQL, data)
+
+def insertperson(name, age, student, cursor):
+    SQL = "INSERT INTO person (name, age, student) VALUES (%s, %s, %s);"
+    data = (f"{name}", age, student)
+    cursor.execute(SQL, data)
+
 def updateperson(age, id, cursor):
     SQL = "UPDATE person SET age = %s WHERE id = %s;"
     data = (age, id)
+    cursor.execute(SQL, data)
+
+def deleteperson(id, cursor):
+    SQL = "DELETE FROM person WHERE id = %s;"
+    data = (id,)
     cursor.execute(SQL, data)
 
 
