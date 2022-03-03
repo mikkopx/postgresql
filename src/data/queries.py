@@ -1,4 +1,6 @@
 import psycopg2
+from configparser import ConfigParser
+import config
 
 def connect():
     con = None
@@ -14,7 +16,7 @@ def connect():
             con.close()
 
 def select_all(cursor):
-    SQL = 'SELECT * FROM city limit 10;'
+    SQL = 'SELECT * FROM person;'
     cursor.execute(SQL)
     colnames = [desc[0] for desc in cursor.description]
     print(colnames)
