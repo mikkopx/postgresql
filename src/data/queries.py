@@ -6,9 +6,9 @@ def connect():
     try:
         con = psycopg2.connect(**config())
         cursor = con.cursor()
-        #select_all(cursor)
-        select_all_2(cursor)
+        select_all(cursor)
         #column_names(cursor)
+        #add_certificate(cursor, "AZ-105")
         cursor.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
@@ -17,16 +17,6 @@ def connect():
             con.close()
 
 def select_all(cursor):
-    SQL = 'SELECT * FROM person;'
-    cursor.execute(SQL)
-    colnames = [desc[0] for desc in cursor.description]
-    print(colnames)
-    row = cursor.fetchone()
-    while row is not None:
-        print(row)
-        row = cursor.fetchone()
-
-def select_all_2(cursor):
     SQL = 'SELECT * FROM certificates;'
     cursor.execute(SQL)
     colnames = [desc[0] for desc in cursor.description]
@@ -46,6 +36,10 @@ def column_names(cursor):
         print(row)
         row = cursor.fetchone()
 
+def add_certificate(cursor, cert_name):
+    SQL = "INSERT INTO certificates (name) VALUES ('{cert_name}');"
+    cursor.execute(SQL)
+    print ("Records created successfully");
 
 if __name__ == '__main__':
     connect()
