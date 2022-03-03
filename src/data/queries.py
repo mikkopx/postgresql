@@ -1,6 +1,5 @@
 import psycopg2
-from configparser import ConfigParser
-import config
+from config import config
 
 def connect():
     con = None
