@@ -1,4 +1,3 @@
-from xmlrpc.client import boolean
 import psycopg2
 from config import config
 
